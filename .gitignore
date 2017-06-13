@@ -1,0 +1,7 @@
+mysql-data
+mysql-data/*
+mysql-data/**
+web-data
+web-data/*
+web-data/**
+.DS_Store
