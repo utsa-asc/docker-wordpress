@@ -17,8 +17,6 @@ services:
 
   wordpress:
     image: 'yobasystems/alpine-php-wordpress'
-    environment:
-      WP_ENV: 'LOCAL'
     depends_on:
       - mariadb
     ports:
@@ -26,6 +24,7 @@ services:
     links:
       - mariadb:mariadb
     environment:
-      - VIRTUAL_HOST=utsa-default.dev
+      VIRTUAL_HOST: 'utsa-default.dev'
+      WP_ENV: 'LOCAL'
     volumes:
       - ./web-data:/usr/html
