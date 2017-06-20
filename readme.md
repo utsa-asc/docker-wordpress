@@ -1,5 +1,7 @@
 git clone --recursive -j8 git@bitbucket.org:utsaucm/docker-wordpress.git
 
+cd docker-wordpress
+
 mkdir mysql-data
 
 git clone git@bitbucket.org:utsaucm/utsa-default-wordpress.git
