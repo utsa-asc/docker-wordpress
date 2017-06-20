@@ -28,3 +28,14 @@ services:
       WP_ENV: 'LOCAL'
     volumes:
       - ./utsa-default-wordpress:/usr/html
+
+  phpmyadmin:
+    image: 'phpmyadmin/phpmyadmin'
+    depends_on:
+      - mariadb
+    ports:
+      - '8181:80'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'supersecret'
+    links:
+      - mariadb:db
