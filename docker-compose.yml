@@ -2,11 +2,11 @@ version: '2'
 
 services:
   mariadb:
-    image: 'yobasystems/alpine-mariadb'
+    build: ./alpine-mariadb
     environment:
       MYSQL_DATABASE: 'wordpress'
       MYSQL_PASSWORD: 'supersecret'
-      MYSQL_ROOT_PASSWORD: 'foo'
+      MYSQL_ROOT_PASSWORD: 'supersecret'
       MYSQL_USER: 'wpuser'
     ports:
       - '3306:3306'
