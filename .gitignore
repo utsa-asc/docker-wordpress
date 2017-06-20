@@ -1,7 +1,6 @@
 mysql-data
 mysql-data/*
 mysql-data/**
-web-data
-web-data/*
-web-data/**
+utsa-default-wordpress
+utsa-default-wordpress/*
 .DS_Store

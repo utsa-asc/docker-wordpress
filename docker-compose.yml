@@ -27,4 +27,4 @@ services:
       VIRTUAL_HOST: 'utsa-default.dev'
       WP_ENV: 'LOCAL'
     volumes:
-      - ./web-data:/usr/html
+      - ./utsa-default-wordpress:/usr/html
