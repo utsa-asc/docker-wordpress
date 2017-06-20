@@ -1,0 +1,3 @@
+[submodule "alpine-mariadb"]
+	path = alpine-mariadb
+	url = git@bitbucket.org:utsaucm/alpine-mariadb.git
