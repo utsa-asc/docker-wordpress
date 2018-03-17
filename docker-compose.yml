@@ -20,21 +20,21 @@ services:
     depends_on:
       - mariadb
     ports:
-      - '8000:80'
+      - '9003:80'
     links:
       - mariadb:mariadb
     environment:
       VIRTUAL_HOST: 'utsa-default.dev'
       WP_ENV: 'LOCAL'
     volumes:
-      - ./utsa-default-wordpress:/usr/html
+      - ./default-wordpress:/usr/html
 
   phpmyadmin:
     image: 'phpmyadmin/phpmyadmin'
     depends_on:
       - mariadb
     ports:
-      - '8181:80'
+      - '9004:80'
     environment:
       MYSQL_ROOT_PASSWORD: 'supersecret'
     links:
