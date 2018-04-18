@@ -9,25 +9,27 @@ services:
       MYSQL_ROOT_PASSWORD: 'supersecret'
       MYSQL_USER: 'wpuser'
     #ports:
-  #    - '3306:3306'
-  #  expose:
-#      - '3306'
+    #    - '3306:3306'
+    #expose:
+    #      - '3306'
     volumes:
       - ./mysql-data:/var/lib/mysql
 
   wordpress:
-    image: 'yobasystems/alpine-php-wordpress'
+    build: ./wordpress
     depends_on:
       - mariadb
+    expose:
+      - "80"
     ports:
-      - '8000:80'
+      - "8282:80"
     links:
       - mariadb:mariadb
     environment:
       VIRTUAL_HOST: 'utsa-default.dev'
       WP_ENV: 'LOCAL'
     volumes:
-      - ./utsa-default-wordpress:/usr/html
+      - ./utsa-default-wordpress:/usr/share/nginx/html
 
   phpmyadmin:
     image: 'phpmyadmin/phpmyadmin'
