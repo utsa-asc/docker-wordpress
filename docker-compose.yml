@@ -1,41 +1,43 @@
-version: '2'
+version: '3'
 
 services:
-  mariadb:
+  mariadb-cce:
     build: ./alpine-mariadb
     environment:
       MYSQL_DATABASE: 'wordpress'
       MYSQL_PASSWORD: 'supersecret'
       MYSQL_ROOT_PASSWORD: 'supersecret'
       MYSQL_USER: 'wpuser'
-    #ports:
-  #    - '3306:3306'
-  #  expose:
-#      - '3306'
     volumes:
       - ./mysql-data:/var/lib/mysql
 
-  wordpress:
+  wordpress-cce:
     image: 'yobasystems/alpine-php-wordpress'
     depends_on:
-      - mariadb
+      - mariadb-cce
     ports:
-      - '8000:80'
+      - '9180:80'
     links:
-      - mariadb:mariadb
+      - mariadb-cce:mariadb
+      - mailcatcher-cce:mailcatcher
     environment:
-      VIRTUAL_HOST: 'utsa-default.dev'
+      VIRTUAL_HOST: 'utsa-cce.dev'
       WP_ENV: 'LOCAL'
     volumes:
       - ./utsa-default-wordpress:/usr/html
 
-  phpmyadmin:
+  phpmyadmin-cce:
     image: 'phpmyadmin/phpmyadmin'
     depends_on:
-      - mariadb
+      - mariadb-cce
     ports:
-      - '8181:80'
+      - '9188:80'
     environment:
       MYSQL_ROOT_PASSWORD: 'supersecret'
     links:
-      - mariadb:db
+      - mariadb-cce:db
+
+  mailcatcher-cce:
+    image: tophfr/mailcatcher
+    ports:
+      - 9125:80
