@@ -1,43 +1,57 @@
 version: '2'
 
 services:
-  mariadb:
-    build: ./alpine-mariadb
+  mysql:
+    image: 'mysql'
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_DATABASE: 'wordpress'
       MYSQL_PASSWORD: 'supersecret'
       MYSQL_ROOT_PASSWORD: 'supersecret'
       MYSQL_USER: 'wpuser'
-    #ports:
-    #    - '3306:3306'
-    #expose:
-    #      - '3306'
+    ports:
+        - '3306:3306'
+    expose:
+          - '3306'
     volumes:
       - ./mysql-data:/var/lib/mysql
 
   wordpress:
-    build: ./wordpress
+    image: wordpress
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_NAME: wp
+      WORDPRESS_DB_PASSWORD: supersecret
     depends_on:
-      - mariadb
+      - mysql
     expose:
       - "80"
     ports:
       - "8282:80"
     links:
-      - mariadb:mariadb
-    environment:
-      VIRTUAL_HOST: 'utsa-default.dev'
-      WP_ENV: 'LOCAL'
+      - mysql:mysql
+    #environment:
+    #  VIRTUAL_HOST: 'utsa-default.dev'
+    #  WP_ENV: 'LOCAL'
     volumes:
-      - ./default-wordpress:/usr/html
+      - ./default-themes:/var/www/html/wp-content/themes/
+      - ./default-plugins:/var/www/html/wp-content/plugins/
+
+  adminer:
+    image: adminer
+    ports:
+      - 8383:8080
+    links:
+      - mysql:mysql
 
   phpmyadmin:
     image: 'phpmyadmin/phpmyadmin'
     depends_on:
-      - mariadb
+      - mysql
     ports:
       - '8181:80'
     environment:
       MYSQL_ROOT_PASSWORD: 'supersecret'
     links:
-      - mariadb:db
+      - mysql:db
