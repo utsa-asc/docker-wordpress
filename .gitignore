@@ -4,5 +4,10 @@ mysql-data/**
 utsa-default-wordpress
 utsa-default-wordpress/*
 .DS_Store
+default-themes
+default-themes/*
+default-plugins
+default-plugins/*
 default-wordpress
 default-wordpress/*
+default-uploads
