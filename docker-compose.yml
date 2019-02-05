@@ -21,7 +21,7 @@ services:
     environment:
       WORDPRESS_DB_HOST: mysql
       WORDPRESS_DB_USER: wpuser
-      WORDPRESS_DB_NAME: wp
+      WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_PASSWORD: supersecret
     depends_on:
       - mysql
